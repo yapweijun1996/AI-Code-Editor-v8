@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const contextModal = document.getElementById('context-modal');
     const contextDisplay = document.getElementById('context-display');
     const closeModalButton = contextModal.querySelector('.close-button');
-    const runFolderTestsButton = document.getElementById('run-folder-tests-button');
     const formatButton = document.getElementById('format-button');
+    const themeToggleButton = document.getElementById('theme-toggle-button');
 
     // --- State ---
     let rootDirectoryHandle = null;
@@ -245,4 +245,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Relayout panels after a short delay to fix initialization issue
     setTimeout(() => UI.relayout(editor), 100);
+
+    // --- Theme Toggling ---
+   const applyTheme = (theme) => {
+       document.body.setAttribute('data-theme', theme);
+       localStorage.setItem('theme', theme);
+   };
+
+   themeToggleButton.addEventListener('click', () => {
+       const currentTheme = localStorage.getItem('theme') || 'light';
+       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+       applyTheme(newTheme);
+   });
+
+   // Apply saved theme on load
+   const savedTheme = localStorage.getItem('theme') || 'light';
+   applyTheme(savedTheme);
 });
