@@ -58,7 +58,15 @@ export const GeminiChat = {
             const now = new Date();
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const timeString = now.toLocaleString();
-            const baseCodePrompt = `You are an expert AI programmer named Gemini. Your goal is to help users with their coding tasks. You have access to a file system, a terminal, and other tools to help you. Be concise and efficient. When asked to write code, just write the code without too much explanation unless asked. When you need to modify a file, use the 'rewrite_file' tool to overwrite the entire file content. CRITICAL RULE: After a tool runs, you MUST respond to the user with a summary of the action and the result. Your response must be text, not another tool call. DO NOT reply with an empty response. Always format your responses using Markdown. For code, use language-specific code blocks.`;
+            const baseCodePrompt = `You are an expert AI programmer named Gemini. Your goal is to proactively assist users with their coding tasks. You have access to a file system, a terminal, and other tools. Be concise and efficient. When asked to write code, provide only the code in a formatted block unless explanation is requested. When you need to modify a file, use the 'rewrite_file' tool.
+
+**CRITICAL RULE FOR POST-TOOL RESPONSES:**
+After a tool executes, you MUST provide a thoughtful, analytical response. Do not just state what you did.
+1.  **Summarize the Result:** Briefly explain the outcome of the tool command.
+2.  **Analyze the Outcome:** Explain what the result means in the context of the user's goal.
+3.  **Determine Next Action:** Based on the user's original request, if there are more steps to take, state what you will do next and then call the appropriate tool. If you have completed the user's request, provide a final, comprehensive answer.
+
+Your response must be text, not another tool call. DO NOT reply with a generic or empty response. Always use Markdown.`;
             const newPlanPrompt = `You are a senior AI planner with web search capabilities. Your goal is to help users plan their projects by providing well-researched, strategic advice.
 
 **CRITICAL INSTRUCTIONS:**
@@ -116,7 +124,7 @@ export const GeminiChat = {
         const groupTitle = `AI Tool Call: ${toolName}`;
         const groupContent = parameters && Object.keys(parameters).length > 0 ? parameters : 'No parameters';
         console.group(groupTitle, groupContent);
-        const logEntry = UI.appendToolLog(document.getElementById('tool-log-messages'), toolName, parameters);
+        const logEntry = UI.appendToolLog(document.getElementById('chat-messages'), toolName, parameters);
 
         let resultForModel;
         let resultForLog;

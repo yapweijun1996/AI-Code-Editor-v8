@@ -113,31 +113,29 @@ export function appendMessage(chatMessages, text, sender, isStreaming = false) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-export function appendToolLog(toolLogMessages, toolName, params) {
+export function appendToolLog(chatMessages, toolName, params) {
     const logEntry = document.createElement('div');
-    logEntry.className = 'tool-log-entry';
+    logEntry.className = 'chat-message tool-log';
 
     const header = document.createElement('div');
     header.className = 'tool-log-entry-header';
     header.innerHTML = `
-    <div class="status-icon loader"></div>
-    <span class="tool-name">${toolName}</span>
+        <div class="status-icon loader"></div>
+        <span class="tool-name">${toolName}</span>
     `;
 
     const paramsPre = document.createElement('pre');
     paramsPre.className = 'tool-log-params';
-    paramsPre.textContent = JSON.stringify(params, null, 2);
+    const paramsText = (params && Object.keys(params).length > 0)
+        ? JSON.stringify(params, null, 2)
+        : 'No parameters';
+    paramsPre.textContent = paramsText;
 
     logEntry.appendChild(header);
     logEntry.appendChild(paramsPre);
 
-    header.addEventListener('click', () => {
-        paramsPre.style.display =
-        paramsPre.style.display === 'none' ? 'block' : 'none';
-    });
-
-    toolLogMessages.appendChild(logEntry);
-    toolLogMessages.scrollTop = toolLogMessages.scrollHeight;
+    chatMessages.appendChild(logEntry);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
     return logEntry;
 }
 

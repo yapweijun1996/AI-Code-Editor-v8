@@ -26,8 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const imagePreviewContainer = document.getElementById('image-preview-container');
     const rateLimitSlider = document.getElementById('rate-limit-slider');
     const rateLimitInput = document.getElementById('rate-limit-input');
-    const toolLogContainer = document.getElementById('tool-log-container');
-    const toolLogHeader = document.querySelector('.tool-log-header');
     const viewContextButton = document.getElementById('view-context-button');
     const condenseContextButton = document.getElementById('condense-context-button');
     const clearContextButton = document.getElementById('clear-context-button');
@@ -148,9 +146,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('rateLimitValue', rateLimitInput.value);
     });
 
-    toolLogHeader.addEventListener('click', () => {
-        toolLogContainer.classList.toggle('collapsed');
-    });
 
     viewContextButton.addEventListener('click', async () => {
         contextDisplay.textContent = await GeminiChat.viewHistory();
@@ -256,6 +251,20 @@ document.addEventListener('DOMContentLoaded', async () => {
        const currentTheme = localStorage.getItem('theme') || 'light';
        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
        applyTheme(newTheme);
+   });
+   // --- Dropdown Logic ---
+   const dropdownButton = document.querySelector('.dropdown-button');
+   const dropdown = document.querySelector('.dropdown');
+
+   dropdownButton.addEventListener('click', (event) => {
+       event.stopPropagation();
+       dropdown.classList.toggle('active');
+   });
+
+   window.addEventListener('click', (event) => {
+       if (!dropdown.contains(event.target)) {
+           dropdown.classList.remove('active');
+       }
    });
 
    // Apply saved theme on load
