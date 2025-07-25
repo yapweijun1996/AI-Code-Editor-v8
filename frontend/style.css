@@ -53,7 +53,7 @@
   --tool-log-header-bg-dark: #343a40;
 }
 
-[data-theme="light"] {
+html[data-theme="light"] {
   --background: var(--background-light);
   --text: var(--text-light);
   --border: var(--border-light);
@@ -79,7 +79,7 @@
   --tool-log-header-bg: var(--tool-log-header-bg-light);
 }
 
-[data-theme="dark"] {
+html[data-theme="dark"] {
   --background: var(--background-dark);
   --text: var(--text-dark);
   --border: var(--border-dark);

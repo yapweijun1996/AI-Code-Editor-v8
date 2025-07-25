@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Intelligent Code Editor</title>
+    <script>
+     (function() {
+       const theme = localStorage.getItem('theme') || 'dark';
+       document.documentElement.setAttribute('data-theme', theme);
+     })();
+    </script>
     <link rel="stylesheet" href="style.css" />
     <!-- jsTree CSS -->
     <link
@@ -27,7 +33,7 @@
         <div id="editor"></div>
       </div>
       <div id="chat-panel" class="sidebar">
-        <h2>AI Chat</h2>
+        <h2 style="margin: 0px 0px 5px 0px;">AI Chat</h2>
         <div id="chat-messages"></div>
         <div id="chat-input-container">
           <div id="chat-toolbar">
@@ -53,7 +59,6 @@
               </div>
               <button id="format-button">Format Document</button>
               <button id="toggle-files-button">Toggle Files</button>
-              <button id="theme-toggle-button">🌓</button>
             </div>
           </div>
           <div id="image-preview-container" style="display: none"></div>
@@ -92,6 +97,7 @@
             <input type="number" id="rate-limit-input" min="0" max="300" value="5" />
           </div>
           <button id="save-keys-button">Save Keys</button>
+          <button id="theme-toggle-button">🌓</button>
                  </details>
                </div>
              </div>
@@ -122,6 +128,5 @@
       window.GoogleGenerativeAI = GoogleGenerativeAI;
     </script>
     <script type="module" src="js/main.js"></script>
-    <script src="folder-management.test.js"></script>
   </body>
 </html>

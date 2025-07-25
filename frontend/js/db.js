@@ -11,7 +11,7 @@ export const DbManager = {
     async openDb() {
         return new Promise((resolve, reject) => {
             if (this.db) return resolve(this.db);
-            const request = indexedDB.open(this.dbName, 3); // Version 3 for new store
+            const request = indexedDB.open(this.dbName, 4); // Version 4 to fix conflict
             request.onerror = () => reject('Error opening IndexedDB.');
             request.onsuccess = (event) => {
                 this.db = event.target.result;

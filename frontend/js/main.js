@@ -246,28 +246,26 @@ document.addEventListener('DOMContentLoaded', async () => {
        document.body.setAttribute('data-theme', theme);
        localStorage.setItem('theme', theme);
    };
-
+ 
    themeToggleButton.addEventListener('click', () => {
-       const currentTheme = localStorage.getItem('theme') || 'light';
+       const currentTheme = localStorage.getItem('theme') || 'dark';
        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
        applyTheme(newTheme);
    });
    // --- Dropdown Logic ---
    const dropdownButton = document.querySelector('.dropdown-button');
    const dropdown = document.querySelector('.dropdown');
-
+ 
    dropdownButton.addEventListener('click', (event) => {
        event.stopPropagation();
        dropdown.classList.toggle('active');
    });
-
+ 
    window.addEventListener('click', (event) => {
        if (!dropdown.contains(event.target)) {
            dropdown.classList.remove('active');
        }
    });
-
-   // Apply saved theme on load
-   const savedTheme = localStorage.getItem('theme') || 'light';
-   applyTheme(savedTheme);
+ 
+   // Apply saved theme on load - moved to inline script in index.html
 });

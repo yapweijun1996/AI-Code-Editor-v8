@@ -41,7 +41,7 @@ function renderTabs(tabBarContainer, onTabClick, onTabClose) {
     });
 }
 
-function clearEditor() {
+export function clearEditor() {
     if (editor) {
         editor.setModel(
             monaco.editor.createModel(
